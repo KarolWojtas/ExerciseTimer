@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/timerListFragment">
+
+    <fragment
+        android:id="@+id/timerEdit"
+        android:name="com.example.exercisetimer.timeredit.TimerEdit"
+        android:label="TimerEdit" >
+        <argument
+            android:name="timerId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <action
+            android:id="@+id/action_timerEdit_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timerListFragment"
+        android:name="com.example.exercisetimer.timerlist.TimerListFragment"
+        android:label="TimerListFragment" >
+        <action
+            android:id="@+id/action_timerListFragment_to_timerEdit"
+            app:destination="@id/timerEdit"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/timerListFragment"></action>
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.exercisetimer.ExerciseFragment"
+        android:label="ExerciseFragment" >
+        <argument
+            android:name="definition"
+            app:argType="com.example.exercisetimer.model.ExerciseTimer" />
+    </fragment>
+</navigation>
