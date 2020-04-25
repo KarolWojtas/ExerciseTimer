@@ -18,12 +18,11 @@
             android:id="@+id/statusBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:text="Wstrzymaj"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/countdownText"
-            app:layout_constraintVertical_bias="0.50" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/countdownText"
@@ -31,20 +30,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@{timerViewModel.timer.toString()}"
+            android:textSize="100sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/statusText"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
 
         <TextView
             android:id="@+id/statusText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{timerViewModel.timerStatus}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/statusBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/countdownText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
