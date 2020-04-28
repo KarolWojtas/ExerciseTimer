@@ -12,6 +12,8 @@ data class ExerciseTimer(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0L,
+    @ColumnInfo(name = "name")
+    var name: String? = null,
     @ColumnInfo(name = "exerciseDuration")
     var exerciseDuration: Int = 0,
     @ColumnInfo(name = "exerciseShortBreak")
@@ -31,6 +33,7 @@ data class ExerciseTimer(
     constructor(parcel: Parcel) : this() {
         with(parcel){
             id = readLong()
+            name = readString()
             exerciseDuration = readInt()
             exerciseShortBreak = readInt()
             intervalBreakDuration = readInt()
@@ -43,6 +46,7 @@ data class ExerciseTimer(
     override fun writeToParcel(parcel: Parcel?, p1: Int) {
         parcel?.apply {
             writeLong(id)
+            writeString(name)
             writeInt(exerciseDuration)
             writeInt(exerciseShortBreak?:0)
             writeInt(intervalBreakDuration)
