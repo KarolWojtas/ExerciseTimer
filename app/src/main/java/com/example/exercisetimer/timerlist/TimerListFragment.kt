@@ -38,6 +38,20 @@ class TimerListFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        val adapter = TimerListAdapter(object : TimerItemClickListener{
+            override fun onDelete(timer: ExerciseTimer) {
+                Log.i("TimerListFragment", "todo delete ${timer.id}")
+            }
+        })
+
+        binding.timerRecyclerView.adapter = adapter
+
+        viewModel.timers.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.setList(it)
+            }
+        })
+
         return binding.root
     }
 

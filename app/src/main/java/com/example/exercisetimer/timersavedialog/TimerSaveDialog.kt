@@ -23,15 +23,12 @@ class TimerSaveDialog(val listener: TimerSaveDialogListener) : DialogFragment(){
             val inflater = requireActivity().layoutInflater
             binding = DataBindingUtil.inflate(inflater, R.layout.timer_save_dialog, null, false)
             builder.setView(binding.root)
-                .setPositiveButton("Zapisz"){ dialog, id ->
+                .setPositiveButton("Zapisz"){_,_ ->
                     // notify timer edit with entered value
                     listener.onSave(binding.nameInput.text.toString())
-                    getDialog()?.cancel()
+                    dialog?.cancel()
                 }
-                .setNegativeButton("Anuluj"
-                ) { dialog, id ->
-                    getDialog()?.cancel()
-                }
+                .setNegativeButton("Anuluj"){ _,_ -> dialog?.cancel() }
             builder.create()
 
         } ?: throw IllegalStateException("Activity cannot be null")
