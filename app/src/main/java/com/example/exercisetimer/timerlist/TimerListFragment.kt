@@ -40,7 +40,7 @@ class TimerListFragment : Fragment() {
 
         val adapter = TimerListAdapter(object : TimerItemClickListener{
             override fun onDelete(timer: ExerciseTimer) {
-                Log.i("TimerListFragment", "todo delete ${timer.id}")
+                viewModel.onDeleteTimer(timer)
             }
         })
 

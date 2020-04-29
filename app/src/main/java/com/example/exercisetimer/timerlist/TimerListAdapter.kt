@@ -82,17 +82,3 @@ class TimerViewHolder private constructor(val binding: TimerItemBinding): Recycl
 interface TimerItemClickListener{
     fun onDelete(timer: ExerciseTimer)
 }
-
-@BindingAdapter("numberToString")
-fun numberToString(view: TextView?, number: Number){
-    view?.let {
-        it.text = number.toString()
-    }
-}
-
-@BindingAdapter("numberTimes")
-fun numberTimes(view: TextView?, number: Number){
-    view?.let {
-        it.text = view.resources.getString(R.string.exerciseTimes, number.toInt())
-    }
-}
