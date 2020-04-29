@@ -1,8 +1,6 @@
 package com.example.exercisetimer.timerlist
 
-import android.provider.ContactsContract
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -89,5 +87,12 @@ interface TimerItemClickListener{
 fun numberToString(view: TextView?, number: Number){
     view?.let {
         it.text = number.toString()
+    }
+}
+
+@BindingAdapter("numberTimes")
+fun numberTimes(view: TextView?, number: Number){
+    view?.let {
+        it.text = view.resources.getString(R.string.exerciseTimes, number.toInt())
     }
 }

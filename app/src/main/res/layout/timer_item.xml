@@ -56,7 +56,7 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintStart_toEndOf="@+id/exerciseText"
             app:layout_constraintTop_toTopOf="@+id/exerciseText"
-            app:numberToString="@{timer.intervalExercises}" />
+            app:numberTimes="@{timer.intervalExercises}" />
 
         <TextView
             android:id="@+id/shortBreakText"
