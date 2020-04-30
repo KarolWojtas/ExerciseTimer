@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.exercisetimer.R
 import com.example.exercisetimer.databinding.ExerciseFragmentBinding
+import com.example.exercisetimer.model.ExerciseTimer
+import java.lang.IllegalArgumentException
 
 /**
  * A simple [Fragment] subclass.
@@ -27,10 +30,10 @@ class ExerciseFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater,
             R.layout.exercise_fragment, container, false)
-        exerciseViewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
+
+        exerciseViewModel = ViewModelProvider(this, ExerciseViewModelFactory(args.definition)).get(ExerciseViewModel::class.java)
 
         binding.timerViewModel = exerciseViewModel
-        exerciseViewModel.startTimer(args.definition)
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.stopBtn.setOnClickListener { exerciseViewModel.stopTimer() }
@@ -38,5 +41,15 @@ class ExerciseFragment : Fragment() {
         binding.statusBtn.setOnClickListener { exerciseViewModel.toggleStatus() }
 
         return binding.root
+    }
+}
+
+class ExerciseViewModelFactory(private val timerDefinition: ExerciseTimer): ViewModelProvider.Factory{
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ExerciseViewModel::class.java)){
+            return ExerciseViewModel(timerDefinition) as T
+        } else {
+            throw IllegalArgumentException()
+        }
     }
 }

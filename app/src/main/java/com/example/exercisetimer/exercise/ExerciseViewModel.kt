@@ -8,15 +8,14 @@ import com.example.exercisetimer.model.ExerciseTimer
 import com.example.exercisetimer.model.ExerciseTimerPhases
 import kotlinx.coroutines.*
 
-class ExerciseViewModel : ViewModel(){
+class ExerciseViewModel(private val timerDefinition: ExerciseTimer) : ViewModel(){
 
-    private var timerDefinition: ExerciseTimer? = null
     private var _timerStatus = MutableLiveData<ExerciseTimerPhases>()
     private var currentInterval = 0
     private var currentExercise = 0
     private var nextSettings: Pair<ExerciseTimerPhases, Int?>? = null
 
-    private var _paused = MutableLiveData(false)
+    private var _paused = MutableLiveData(true)
     val paused: LiveData<Boolean>
         get() = _paused
 
@@ -33,8 +32,7 @@ class ExerciseViewModel : ViewModel(){
     val timer: LiveData<Int>
         get() = _timer
 
-    fun startTimer(timerDefinition: ExerciseTimer, countDownOverride: Int? = null){
-        this.timerDefinition = timerDefinition
+    fun startTimer(countDownOverride: Int? = null){
         /**
          * initial settings assignment
          */
@@ -83,7 +81,7 @@ class ExerciseViewModel : ViewModel(){
                 /**
                  * start countdown anew, starting with timer value
                  */
-                timerDefinition?.let { startTimer(it, _timer.value) }
+                startTimer(timer.value)
             }
         }
     }
@@ -113,6 +111,7 @@ class ExerciseViewModel : ViewModel(){
         }
     }
 
+    // todo jak jest zerowa short break to cos sie jebie
     private fun getNextStatus(currentStatus: ExerciseTimerPhases?, timerDefinition: ExerciseTimer): Pair<ExerciseTimerPhases, Int?> {
         return when(currentStatus){
             null -> ExerciseTimerPhases.EXERCISE to timerDefinition.exerciseDuration
