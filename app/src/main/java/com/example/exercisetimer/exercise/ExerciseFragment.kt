@@ -32,6 +32,11 @@ class ExerciseFragment : Fragment() {
         binding.timerViewModel = exerciseViewModel
         exerciseViewModel.startTimer(args.definition)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.stopBtn.setOnClickListener { exerciseViewModel.stopTimer() }
+
+        binding.statusBtn.setOnClickListener { exerciseViewModel.toggleStatus() }
+
         return binding.root
     }
 }

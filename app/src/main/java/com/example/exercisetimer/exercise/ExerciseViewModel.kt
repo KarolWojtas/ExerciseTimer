@@ -14,37 +14,46 @@ class ExerciseViewModel : ViewModel(){
     private var _timerStatus = MutableLiveData<ExerciseTimerPhases>()
     private var currentInterval = 0
     private var currentExercise = 0
-    private var isPaused = false
+    private var nextSettings: Pair<ExerciseTimerPhases, Int?>? = null
+
+    private var _paused = MutableLiveData(false)
+    val paused: LiveData<Boolean>
+        get() = _paused
+
     val timerStatus: LiveData<ExerciseTimerPhases>
         get() = _timerStatus
+
     val timerStatusLabel: LiveData<String>
         get() = Transformations.map(_timerStatus){it.label}
 
     private val _timer = MutableLiveData<Int>()
 
-    private val timerJob = Job()
-
-    private val timerScope = CoroutineScope(Dispatchers.Main + timerJob)
+    private var timerScope = CoroutineScope(Dispatchers.Main + Job())
 
     val timer: LiveData<Int>
         get() = _timer
 
-    fun startTimer(timerDefinition: ExerciseTimer){
+    fun startTimer(timerDefinition: ExerciseTimer, countDownOverride: Int? = null){
         this.timerDefinition = timerDefinition
         /**
          * initial settings assignment
          */
-        var nextSettings: Pair<ExerciseTimerPhases, Int?> = ExerciseTimerPhases.EXERCISE to timerDefinition.exerciseDuration
+        if(nextSettings == null){
+            nextSettings = ExerciseTimerPhases.EXERCISE to timerDefinition.exerciseDuration
+        }
+        if(countDownOverride != null){
+            nextSettings = nextSettings?.first!! to countDownOverride
+        }
         timerScope.launch {
             while (_timerStatus.value != ExerciseTimerPhases.FINISHED){
                 /**
                  * updated status
                  */
-                _timerStatus.value = nextSettings.first
+                _timerStatus.value = nextSettings!!.first
                 /**
                  * perform countdown
                  */
-                countDown(nextSettings.second?:0)
+                countDown(nextSettings!!.second?:0)
                 /**
                  * new settings are stored before exercise / interval increment
                  */
@@ -65,7 +74,32 @@ class ExerciseViewModel : ViewModel(){
     }
 
     fun toggleStatus(){
-        // todo
+        if(_timerStatus.value != ExerciseTimerPhases.FINISHED){
+            _paused.value = !_paused.value!!
+            if(_paused.value!!){
+                timerScope.cancel()
+                timerScope = CoroutineScope(Dispatchers.Main + Job())
+            } else {
+                /**
+                 * start countdown anew, starting with timer value
+                 */
+                timerDefinition?.let { startTimer(it, _timer.value) }
+            }
+        }
+    }
+
+    /**
+     * stop timer job and reset state values
+     */
+    fun stopTimer(){
+        if (timerScope.isActive){
+            timerScope.cancel()
+            _timerStatus.value = ExerciseTimerPhases.FINISHED
+            _timer.value = 0
+            currentInterval = timerDefinition?.intervals?:0
+            currentExercise = timerDefinition?.intervalExercises?:0
+        }
+
     }
 
     private suspend fun countDown(startTime: Int) {
