@@ -15,8 +15,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:onClick="@{() -> clickListener.onClickItem(timer)}"
         android:paddingBottom="8dp">
-
         <TextView
             android:id="@+id/nameText"
             android:layout_width="wrap_content"
@@ -24,89 +25,111 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:text="@{timer.name}"
-            android:textSize="20sp"
+            android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <Button
+        <ImageButton
             android:id="@+id/deleteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:onClick="@{() -> clickListener.onDelete(timer)}"
-            android:text="Usuń"
+            android:src="@drawable/ic_delete_black_18dp"
+            android:background="#fff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
         <TextView
             android:id="@+id/intervalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toBottomOf="@+id/intervalBreakBox"
             app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
-            app:layout_constraintTop_toTopOf="parent"
-            app:numberToString="@{timer.intervals}" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/intervalBreakBox"
+            app:numberTimes="@{timer.intervals}" />
 
         <TextView
             android:id="@+id/exerciseCountText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:textSize="24sp"
-            app:layout_constraintStart_toEndOf="@+id/exerciseText"
-            app:layout_constraintTop_toTopOf="@+id/exerciseText"
+            app:layout_constraintEnd_toStartOf="@+id/intervalBreakBox"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/shortBreakBox"
+            app:layout_constraintTop_toTopOf="@+id/exerciseBox"
             app:numberTimes="@{timer.intervalExercises}" />
 
-        <TextView
-            android:id="@+id/shortBreakText"
+        <LinearLayout
+            android:id="@+id/shortBreakBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:background="@drawable/yellow_badge"
             android:gravity="center_horizontal"
-            android:textSize="24sp"
-            app:layout_constraintStart_toEndOf="@+id/exerciseCountText"
-            app:layout_constraintTop_toTopOf="@+id/exerciseText"
-            app:numberToString="@{timer.exerciseShortBreak}" />
+            android:padding="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/exerciseBox"
+            app:layout_constraintEnd_toStartOf="@+id/exerciseCountText"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/exerciseBox"
+            app:layout_constraintTop_toTopOf="@+id/exerciseBox">
 
-        <TextView
-            android:id="@+id/intervalBreakText"
+            <TextView
+                android:id="@+id/shortBreakText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="24sp"
+                app:numberToString="@{timer.exerciseShortBreak}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/intervalBreakBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:background="@drawable/green_badge"
             android:gravity="center_horizontal"
-            android:textSize="24sp"
-            app:layout_constraintStart_toEndOf="@+id/shortBreakText"
-            app:layout_constraintTop_toTopOf="@+id/exerciseText"
-            app:numberToString="@{timer.intervalBreakDuration}" />
+            android:padding="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/intervalText"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/exerciseCountText"
+            app:layout_constraintTop_toTopOf="@+id/shortBreakBox">
 
-        <TextView
-            android:id="@+id/exerciseText"
+            <TextView
+                android:id="@+id/intervalBreakText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="24sp"
+                app:numberToString="@{timer.intervalBreakDuration}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/exerciseBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:background="@drawable/red_badge"
             android:gravity="center_horizontal"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/intervalText"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/nameText"
-            app:numberToString="@{timer.exerciseDuration}" />
+            android:padding="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/nameText"
+            app:layout_constraintTop_toBottomOf="@+id/nameText">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="102dp" />
+            <TextView
+                android:id="@+id/exerciseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="24sp"
+                app:numberToString="@{timer.exerciseDuration}" />
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

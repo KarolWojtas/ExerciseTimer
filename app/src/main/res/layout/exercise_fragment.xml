@@ -6,23 +6,25 @@
     <data>
         <variable
             name="timerViewModel"
-            type="com.example.exercisetimer.viewmodel.TimerViewModel" />
+            type="com.example.exercisetimer.exercise.ExerciseViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:statusColor="@{timerViewModel.timerStatus}"
-        tools:context=".ExerciseFragment">
+        tools:context=".exercise.ExerciseFragment">
 
-        <Button
+        <ImageButton
             android:id="@+id/statusBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="Wstrzymaj"
+            android:background="#fff"
+            android:src="@drawable/ic_pause_black_18dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/stopBtn"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -47,5 +49,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/countdownText" />
+
+        <ImageButton
+            android:id="@+id/stopBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:background="#fff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/statusBtn"
+            android:src="@drawable/ic_stop_black_18dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

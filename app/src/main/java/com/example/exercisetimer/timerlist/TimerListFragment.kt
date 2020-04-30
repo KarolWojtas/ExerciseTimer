@@ -42,6 +42,14 @@ class TimerListFragment : Fragment() {
             override fun onDelete(timer: ExerciseTimer) {
                 viewModel.onDeleteTimer(timer)
             }
+
+            /**
+             * navigate to exercise fragment with timer
+             */
+            override fun onClickItem(timer: ExerciseTimer) {
+                val action = TimerListFragmentDirections.actionTimerListFragmentToExerciseFragment(timer)
+                findNavController().navigate(action)
+            }
         })
 
         binding.timerRecyclerView.adapter = adapter

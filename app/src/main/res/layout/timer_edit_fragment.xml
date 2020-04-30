@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="153dp" />
+            app:layout_constraintGuide_begin="119dp" />
 
         <TextView
             android:id="@+id/exerciseDurationText"
@@ -48,15 +48,13 @@
             android:id="@+id/shortBreakInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:ems="10"
             android:importantForAutofill="no"
             android:inputType="number"
             android:text="@={timerEditViewModel.exerciseShortBreak}"
+            app:layout_constraintBottom_toTopOf="@+id/intervalInput"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/explicitResumeSwitch" />
 
@@ -64,29 +62,14 @@
             android:id="@+id/exerciseDurationInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
             android:ems="10"
             android:inputType="number"
             android:text="@={timerEditViewModel.exerciseDuration}"
+            app:layout_constraintBottom_toTopOf="@+id/intervalExercisesInput"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Switch
-            android:id="@+id/explicitResumeSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:checked="@={timerEditViewModel.explicitResume}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/intervalExercisesInput" />
 
         <TextView
             android:id="@+id/explicitResumeText"
@@ -113,14 +96,12 @@
             android:id="@+id/intervalInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="number"
             android:text="@={timerEditViewModel.intervals}"
+            app:layout_constraintBottom_toTopOf="@+id/intervalBreakInput"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/shortBreakInput" />
 
@@ -128,16 +109,15 @@
             android:id="@+id/intervalBreakInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="number"
             android:text="@={timerEditViewModel.intervalBreakDuration}"
+            app:layout_constraintBottom_toTopOf="@+id/startBtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/intervalInput" />
+            app:layout_constraintTop_toBottomOf="@+id/intervalInput"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/intervalBreakText"
@@ -154,16 +134,25 @@
             android:id="@+id/intervalExercisesInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="number"
             android:text="@={timerEditViewModel.intervalExercises}"
+            app:layout_constraintBottom_toTopOf="@+id/explicitResumeSwitch"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/exerciseDurationInput" />
+
+        <Switch
+            android:id="@+id/explicitResumeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={timerEditViewModel.explicitResume}"
+            app:layout_constraintBottom_toTopOf="@+id/shortBreakInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/intervalExercisesInput" />
 
         <TextView
             android:id="@+id/intervalExercisesText"
@@ -184,10 +173,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="16dp"
             android:text="Zacznij"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/intervalBreakInput" />
+            app:layout_constraintTop_toBottomOf="@+id/intervalBreakInput"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/saveBtn"

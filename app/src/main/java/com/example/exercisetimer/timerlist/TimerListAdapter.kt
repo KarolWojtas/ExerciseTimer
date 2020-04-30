@@ -81,4 +81,5 @@ class TimerViewHolder private constructor(val binding: TimerItemBinding): Recycl
 
 interface TimerItemClickListener{
     fun onDelete(timer: ExerciseTimer)
+    fun onClickItem(timer: ExerciseTimer)
 }

@@ -25,10 +25,13 @@
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@id/timerListFragment"></action>
+        <action
+            android:id="@+id/action_timerListFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
-        android:name="com.example.exercisetimer.ExerciseFragment"
+        android:name="com.example.exercisetimer.exercise.ExerciseFragment"
         android:label="ExerciseFragment" >
         <argument
             android:name="definition"

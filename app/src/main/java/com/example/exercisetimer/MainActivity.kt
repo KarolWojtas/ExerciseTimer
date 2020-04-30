@@ -2,15 +2,13 @@ package com.example.exercisetimer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.exercisetimer.databinding.ActivityMainBinding
-import com.example.exercisetimer.viewmodel.TimerViewModel
+import com.example.exercisetimer.exercise.ExerciseViewModel
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    lateinit var timerViewModel: TimerViewModel
+    lateinit var exerciseViewModel: ExerciseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

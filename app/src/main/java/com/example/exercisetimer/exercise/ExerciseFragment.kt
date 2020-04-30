@@ -1,4 +1,4 @@
-package com.example.exercisetimer
+package com.example.exercisetimer.exercise
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.example.exercisetimer.R
 import com.example.exercisetimer.databinding.ExerciseFragmentBinding
-import com.example.exercisetimer.databinding.TimerListFragmentBinding
-import com.example.exercisetimer.model.ExerciseTimer
-import com.example.exercisetimer.viewmodel.TimerViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -21,17 +19,18 @@ import com.example.exercisetimer.viewmodel.TimerViewModel
 class ExerciseFragment : Fragment() {
 
     lateinit var binding: ExerciseFragmentBinding
-    lateinit var timerViewModel: TimerViewModel
+    lateinit var exerciseViewModel: ExerciseViewModel
     private val args: ExerciseFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.exercise_fragment, container, false)
-        timerViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.exercise_fragment, container, false)
+        exerciseViewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
 
-        binding.timerViewModel = timerViewModel
-        timerViewModel.startTimer(args.definition)
+        binding.timerViewModel = exerciseViewModel
+        exerciseViewModel.startTimer(args.definition)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

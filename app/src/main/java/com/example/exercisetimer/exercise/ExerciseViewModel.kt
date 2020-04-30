@@ -1,4 +1,4 @@
-package com.example.exercisetimer.viewmodel
+package com.example.exercisetimer.exercise
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,9 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.example.exercisetimer.model.ExerciseTimer
 import com.example.exercisetimer.model.ExerciseTimerPhases
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.Channel
 
-class TimerViewModel : ViewModel(){
+class ExerciseViewModel : ViewModel(){
 
     private var timerDefinition: ExerciseTimer? = null
     private var _timerStatus = MutableLiveData<ExerciseTimerPhases>()
